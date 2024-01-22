@@ -1,0 +1,62 @@
+﻿@model Tuple<IEnumerable<Service>, IEnumerable<Departement>>
+
+
+@{
+    ViewData["Title"] = "Services";
+}
+
+<h2 class="text-center ">Services de l'UFR</h2>
+<div class="row " >
+    <div class="col-md-4 position-relative" >
+        <form asp-action="addService" class="d-flex flex-column gap-2 position-fixed">
+            <h4 class="text-center">Ajouter un service</h4>
+            <div class="form-group">
+                @* <label for="nnns">Nom</label> *@
+                <input id="nnns" type="text" class="form-control" name="nom" placeholder="Nom">
+            </div>
+            <div class="form-group ">
+                <label for="ddds">Departement</label>
+                <select id="ddds" name="id_departement" class="form-select" required="required" >
+                    <option></option>
+                    @foreach (var item in Model.Item2)
+                    {
+                        <option value="@item.id">@item.nom</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+        @* <div class="clearfix">.</div> *@
+    </div>
+    <div class="col-md-8" >
+         <div class="table">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Departement</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <th scope="row">@item.id</th>
+                            <th scope="row">@item.nom</th>
+                            <td>@Model.Item2.ToList().Find((e)=>e.id==item.id_departement)?.nom</td>
+                            <td>
+                                <form method="post" asp-action="delService">
+                                    <input type="hidden" name="id" value="@item.id"/>
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+   
+</div>

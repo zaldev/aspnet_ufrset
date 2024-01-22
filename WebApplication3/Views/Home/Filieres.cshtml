@@ -1,0 +1,52 @@
+@model Tuple<IEnumerable<Filiere>, IEnumerable<Departement>>;
+
+@{
+    ViewData["Title"] = "Filieres";
+}
+
+<h2 class="text-center ">Filieres de l'UFR</h2>
+<div class="row " >
+    <div class="col-md-4 position-relative" >
+        <form asp-action="addFiliere" method="post" class="d-flex flex-column gap-2 position-fixed">
+            <h4 class="text-center">Ajouter une filiere</h4>
+            <div class="form-group">
+                @* <label for="nnnf">Nom</label> *@
+
+                <input type="text" name="nom" class="form-control" id="nnnf" placeholder="Nom" required="">
+            </div>
+            
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+        @* <div class="clearfix">.</div> *@
+    </div>
+    <div class="col-md-8" >
+         <div class="table">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <th scope="row">@item.id</th>
+                            <th scope="row">@item.nom</th>
+
+                            <td>
+                                <form method="post" asp-action="delFiliere">
+                                    <input type="hidden" name="id" value="@item.id"/>
+                                    <button type="submit" class="btn btn-danger" disabled=@(Model.Item2.ToList().Exists((e)=>e.id_filiere==item.id))>Supprimer</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+   
+</div>

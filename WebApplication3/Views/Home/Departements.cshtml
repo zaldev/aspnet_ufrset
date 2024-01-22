@@ -1,0 +1,75 @@
+@model Tuple<IEnumerable<Departement>, IEnumerable<Professeur>, IEnumerable<Filiere>, IEnumerable<Service>>
+
+
+@{
+    ViewData["Title"] = "Departements";
+}
+
+<h2 class="text-center ">Departement de l'UFR</h2>
+<div class="row " >
+    <div class="col-md-4 position-relative" >
+        <form asp-action="addDepartement" class="d-flex flex-column gap-2 position-fixed">
+            <h4 class="text-center">Ajouter un departement</h4>
+            <div class="form-group">
+                @* <label for="nnn">Nom</label> *@
+                <input id="nnn" type="text" class="form-control" name="nom" placeholder="Nom">
+            </div>
+            <div class="form-group">
+                <label for="ppp">Chef de departement</label>
+                <select id="ppp" name="id_chef" required="" class="form-select">
+                    <option ></option>
+                    @foreach (var item in Model.Item2.ToList().FindAll((e)=>e.is_per==true))
+                    {
+                        <option value="@item.id">@item.nom</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fff">Filiere</label>
+                <select id="fff" name="id_filiere" required=""class="form-select" >
+                    <option ></option>
+                    @foreach (var item in Model.Item3)
+                    {
+                        <option value="@item.id">@item.nom</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" >Ajouter</button>
+        </form>
+        @* <div class="clearfix">.</div> *@
+    </div>
+    <div class="col-md-8" >
+         <div class="table">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Chef de departement</th>
+                        <th scope="col">Filiere</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <th scope="row">@item.id</th>
+                            <th scope="row">@item.nom</th>
+                            <td>@Model.Item2.ToList().Find((e)=>e.id==item.id_professeur)?.nom</td>
+                            <td>@Model.Item3.ToList().Find((e)=>e.id==item.id_filiere)?.nom</td>
+                            <td>
+                                <form method="post" asp-action="delDepartement">
+                                    <input type="hidden" name="id" value="@item.id"/>
+                                    <button type="submit" class="btn btn-danger" disabled=@(Model.Item4.ToList().Exists((e)=>e.id_departement==item.id) ||Model.Item4.ToList().Exists((e)=>e.id_departement==item.id) ) >Supprimer</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+   
+</div>

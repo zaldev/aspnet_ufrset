@@ -1,0 +1,67 @@
+@model Tuple<IEnumerable<Professeur>, IEnumerable<Departement>>;
+
+@{
+    ViewData["Title"] = "Professeurs";
+}
+
+<h2 class="text-center ">Professeur de l'UFR</h2>
+<div class="row " >
+    <div class="col-md-4 position-relative" >
+        <form asp-action="addProfesseur" method="post" class="d-flex flex-column gap-2 position-fixed">
+            <h4 class="text-center">Ajouter un professeur</h4>
+            <div class="form-group">
+                <input type="text" name="nom" class="form-control" id="_nom" placeholder="Nom" required="required">
+            </div>
+            <div class="form-group">
+                <input type="text" name="specialite" class="form-control" id="_specialite" placeholder="Specialite" required="required">
+            </div>
+            <div class="form-group d-flex flex-row justify-content-around">
+                <div>
+                    <label for="r1">PER</label>
+                    <input type="radio" id="r1" name="is_per" value="True">
+                </div>
+                <div>
+                    <label for="r2">Vocataire</label>
+                    <input type="radio" id="r2" name="is_per" value="False" checked="checked">
+                </div>
+                
+
+            </div>
+            
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+        @* <div class="clearfix">.</div> *@
+    </div>
+    <div class="col-md-8" >
+         <div class="table">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Specialité</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <th scope="row">@item.nom</th>
+                            <td>@item.specialite</td>
+                            <td>@(item.is_per ? "PER" : "Vocataire")</td>
+                            <td>
+                                <form method="post" asp-action="delProfesseur">
+                                    <input type="hidden" name="id" value="@item.id"  />
+                                    <button type="submit" class="btn btn-danger" disabled=@(Model.Item2.ToList().Exists((e)=>e.id_professeur==item.id))>Supprimer</button>
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+   
+</div>

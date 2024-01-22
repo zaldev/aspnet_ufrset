@@ -1,0 +1,56 @@
+﻿@model Tuple<IEnumerable<Departement>, IEnumerable<Professeur>, IEnumerable<Filiere>, IEnumerable<Service>>
+
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenue</h1>
+
+    <p>L’UFR SET de l’Université de Thiès est créée par arrêté rectoral en Octobre 2007. C’est un établissement d’enseignement supérieur sous l’appellation d’Unité de Formation et de Recherche des Sciences et Technologies. Elle a été créée afin d’offrir une diversité des offres de formation dans le cadre de la nouvelle carte universitaire initiée par les autorités en 2004. L’UFR SET assure la formation des étudiants dans les domaines des Sciences et Technologies (Informatique, Mathématiques, Hydraulique, Physique Chimie, etc.). L’orientation de l’UFR SET vers l'enseignement et la formation dans le domaine des sciences et technologies va largement contribuer à la vulgarisation des STEM (Sciences, Techniques, Métiers de l’ingénieur et Mathématiques), qui constituent une des principales orientations du Gouvernement du Sénégal. C’est ainsi, qu’une proportion des étudiants sénégalais et étrangers diplômés de l’UFR travaille aujourd'hui comme cadres moyens dans les secteurs public et privé et dans certains organismes. Avec une organisation pédagogique articulée sur le système LMD, l'UFR SET répond aux objectifs de professionnalisation de la formation. Elle développe également des activités de transfert de technologies, de valorisation des connaissances issues de la recherche, d´appui à l'innovation et à la création d'entreprises, de diffusion de la culture scientifique et technique.</p>
+
+</div>
+<div class="container ">
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Professeurs (@Model.Item2.ToList().Count)</h5>
+                    <p class="card-text">Les professeurs de l'UFR SET</p>
+                    <a class="btn bg-info" asp-area="" asp-controller="Home" asp-action="Professeurs">Voir +</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filieres (@Model.Item3.ToList().Count)</h5>
+                    <p class="card-text">Les filieres de l'UFR SET</p>
+                    <a class="btn bg-info" asp-area="" asp-controller="Home" asp-action="Filieres">Voir +</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Departements (@Model.Item1.ToList().Count)</h5>
+                    <p class="card-text">Les departements de l'UFR SET</p>
+                    <a class="btn bg-info" asp-area="" asp-controller="Home" asp-action="Departements">Voir +</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Services (@Model.Item4.ToList().Count)</h5>
+                    <p class="card-text">Les services de l'UFR SET</p>
+                    <a class="btn bg-info" asp-area="" asp-controller="Home" asp-action="Services">Voir +</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
