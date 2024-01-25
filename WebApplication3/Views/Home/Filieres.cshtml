@@ -1,4 +1,4 @@
-@model Tuple<IEnumerable<Filiere>, IEnumerable<Departement>>;
+@model Tuple<IEnumerable<Filiere>, IEnumerable<Departement>, IEnumerable<Professeur>>;
 
 @{
     ViewData["Title"] = "Filieres";
@@ -38,7 +38,7 @@
                             <td>
                                 <form method="post" asp-action="delFiliere">
                                     <input type="hidden" name="id" value="@item.id"/>
-                                    <button type="submit" class="btn btn-danger" disabled=@(Model.Item2.ToList().Exists((e)=>e.id_filiere==item.id))>Supprimer</button>
+                                    <button type="submit" class="btn btn-danger" disabled=@(Model.Item2.ToList().Exists((e)=>e.id_filiere==item.id) || Model.Item3.ToList().Exists((e)=>e.id_filiere==item.id))>Supprimer</button>
                                 </form>
 
                             </td>

@@ -1,4 +1,4 @@
-@model Tuple<IEnumerable<Professeur>, IEnumerable<Departement>>;
+@model Tuple<IEnumerable<Professeur>, IEnumerable<Departement>,  IEnumerable<Filiere>>;
 
 @{
     ViewData["Title"] = "Professeurs";
@@ -27,6 +27,16 @@
                 
 
             </div>
+             <div class="form-group">
+                            <label for="fff">Filiere</label>
+                            <select id="fff" name="id_filiere" required=""class="form-select" >
+                                <option ></option>
+                                @foreach (var item in Model.Item3)
+                                {
+                                    <option value="@item.id">@item.nom</option>
+                                }
+                            </select>
+                        </div>
             
             <button type="submit" class="btn btn-success">Ajouter</button>
         </form>
@@ -40,6 +50,7 @@
                         <th scope="col">Nom</th>
                         <th scope="col">Specialité</th>
                         <th scope="col">Titre</th>
+                        <th scope="col">Filiere</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -50,6 +61,8 @@
                             <th scope="row">@item.nom</th>
                             <td>@item.specialite</td>
                             <td>@(item.is_per ? "PER" : "Vocataire")</td>
+                            <td>@Model.Item3.ToList().Find((e)=>e.id==item.id_filiere)?.nom</td>
+
                             <td>
                                 <form method="post" asp-action="delProfesseur">
                                     <input type="hidden" name="id" value="@item.id"  />

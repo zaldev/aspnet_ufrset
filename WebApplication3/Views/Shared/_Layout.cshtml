@@ -10,7 +10,7 @@
     @* <script src="https://cdn.tailwindcss.com"></script> *@
 </head>
 <body>
-<header>
+<header class="position-fixed" style="top: 0; right: 0; left: 0;">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UFR - SET</a>
@@ -37,13 +37,13 @@
         </div>
     </nav>
 </header>
-<div class="container">
+<div class="container clearfix" style="margin-top: 60px;">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="border-top bg-white footer text-muted  " style="bottom: 0; right: 0; left: 0;">
     <div class="container">
         &copy; 2024 - zaldev - <a asp-area="" asp-controller="Home" >Accueil</a>
     </div>

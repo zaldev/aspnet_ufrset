@@ -33,7 +33,7 @@ public class HomeController : Controller
                 departements = Departement.getAllDepartements();
                 break;
             case "f":
-                filieres = Filiere.GetAllFilieres();
+                filieres = Filiere.getAllFilieres();
                 break;
             case "s":
                 services = Service.getAllServices();
@@ -41,7 +41,7 @@ public class HomeController : Controller
             default:
                 professeurs = Professeur.getAllProfesseurs();
                 departements = Departement.getAllDepartements();
-                filieres = Filiere.GetAllFilieres();
+                filieres = Filiere.getAllFilieres();
                 services = Service.getAllServices();
                 break;
         }
@@ -92,7 +92,7 @@ public class HomeController : Controller
     
     public IActionResult Filieres()
     {
-        var items = new Tuple<IEnumerable<Filiere>, IEnumerable<Departement>>(filieres, departements);
+        var items = new Tuple<IEnumerable<Filiere>, IEnumerable<Departement>, IEnumerable<Professeur>>(filieres, departements, professeurs);
         return View(items);
     } 
     
@@ -124,7 +124,7 @@ public class HomeController : Controller
 
     
     public IActionResult Professeurs(){
-        var items = new Tuple<IEnumerable<Professeur>, IEnumerable<Departement>>(professeurs, departements);
+        var items = new Tuple<IEnumerable<Professeur>, IEnumerable<Departement>, IEnumerable<Filiere>>(professeurs, departements, filieres);
         return View(items);
     }
     
@@ -136,6 +136,8 @@ public class HomeController : Controller
             professeur.nom = Request.Form["nom"];
             professeur.specialite = Request.Form["specialite"];
             professeur.is_per = Request.Form["is_per"] == "True";
+            professeur.id_filiere = int.Parse(Request.Form["id_filiere"]);
+
             MySqlDataReader reader = Professeur.addProf(professeur);
             reader.Close();
             init("p"); 

@@ -20,7 +20,7 @@ public class Filiere
         return DbConnection.requete(query);
     }
 
-    public static List<Filiere> GetAllFilieres()
+    public static List<Filiere> getAllFilieres()
     {
         MySqlDataReader reader = DbConnection.requete("SELECT * FROM filiere;");
         List<Filiere> filieres = new List<Filiere>();
