@@ -10,7 +10,7 @@ public class DbConnection
     private static MySqlConnection _connection = null;
     private DbConnection()
     {
-        string connectionString = "server=localhost;user id=root;password=;database=db_ufr_set;";
+        string connectionString = "server=localhost;user id=<user_id>;password=<password>;database=db_ufr_set;";
         _connection = new MySqlConnection(connectionString);
         _connection.Open();
         if (_connection.State == ConnectionState.Open)
